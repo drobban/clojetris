@@ -19,6 +19,14 @@
               [1 1 0 0]
               [0 0 0 0]])
 
+;; Replace with a function
+(defn create_gameboard [rows cols]
+  (loop [gameboard [] r_rows rows]
+    (if (zero? r_rows)
+      gameboard
+      (recur (conj gameboard (vec (take cols (repeat 0))))
+             (dec r_rows)))))
+
 ;; Gameboard bitmap
 ;; Should add a padding of 1 extra
 (def gameboard [[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]

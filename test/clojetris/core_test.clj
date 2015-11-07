@@ -54,6 +54,8 @@
 
 
 (deftest bricks
+  (testing "Gameboard creation"
+    (fact (create_gameboard 5 6) => test_board))
   (testing "Rotation"
     (testing "L-Brick"
       (is (= (brick_rotation 1 l_brick) rotated_l))
