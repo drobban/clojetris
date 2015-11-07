@@ -96,3 +96,12 @@
                (first rest_rows)
                (rest rest_rows)
                (inc row_idx))))))
+
+;; Works as is. But will not function if brick and gameboard is color coded
+(defn no_collision_board [gameboard brick pos_row pos_col]
+  "Return new state of gameboard if there is no collisions, else nil"
+  (let [new_gameboard (brick_position gameboard brick pos_row pos_col)
+        check_sum (+ (reduce + (flatten gameboard)) (reduce + (flatten brick)))]
+    (if (= check_sum (reduce + (flatten new_gameboard)))
+      new_gameboard
+      nil)))

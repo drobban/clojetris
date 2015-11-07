@@ -71,8 +71,10 @@
       (fact (brick_position test_board l_brick 0 -3) => test_board)
       (fact (brick_position test_board l_brick -3 -3) => test_board)
       (fact (brick_position test_board l_brick -1 0) => lbrick4_board)
-      (fact (brick_position test_board l_brick 2 0) => lbrick5_board)
-      ))
+      (fact (brick_position test_board l_brick 2 0) => lbrick5_board))
+    (testing "Collision"
+      (fact (no_collision_board test_board l_brick 0 1) => lbrick1_board)
+      (fact (no_collision_board lbrick1_board l_brick 0 1) => nil)))
   (testing "Row trimming"
     (fact (trim_into test_row test_b_row -1) => [1 0 0])
     (fact (trim_into test_row test_b_row 4) => [0 1])
