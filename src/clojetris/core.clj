@@ -19,8 +19,8 @@
               [1 1 0 0]
               [0 0 0 0]])
 
-;; Replace with a function
 (defn create_gameboard [rows cols]
+  "Returns a gameboard bitmap of n rows wide and n cols high"
   (loop [gameboard [] r_rows rows]
     (if (zero? r_rows)
       gameboard
@@ -28,26 +28,7 @@
              (dec r_rows)))))
 
 ;; Gameboard bitmap
-;; Should add a padding of 1 extra
-(def gameboard [[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]])
+(def gameboard (create_gameboard 20 20))
 
 ;; Kom ihåg hur vi kan applicera händelser från en lista
 ;; (reduce #(%2 %1) s_brick [rotate rotate rotate rotate])
@@ -109,7 +90,8 @@
 (defn no_collision_board [gameboard brick pos_row pos_col]
   "Return new state of gameboard if there is no collisions, else nil"
   (let [new_gameboard (brick_position gameboard brick pos_row pos_col)
-        check_sum (+ (reduce #(+ (min 1 %1) %2) (flatten gameboard)) (reduce #(+ (min 1 %1) %2) (flatten brick)))]
+        check_sum (+ (reduce #(+ (min 1 %1) %2) (flatten gameboard))
+                     (reduce #(+ (min 1 %1) %2) (flatten brick)))]
     (if (= check_sum (reduce #(+ (min 1 %1) %2) (flatten new_gameboard)))
       new_gameboard
       nil)))
