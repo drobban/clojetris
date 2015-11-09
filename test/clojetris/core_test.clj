@@ -13,6 +13,11 @@
                 [0 0 1 0]
                 [0 0 1 0]])
 
+(def colored_l_brick [[0 0 0 0]
+                      [0 6 0 0]
+                      [0 6 0 0]
+                      [0 6 6 0]])
+
 (def lbrick1_board [[0 0 0 0 0 0]
                     [0 0 1 0 0 0]
                     [0 0 1 0 0 0]
@@ -76,7 +81,9 @@
       (fact (brick_position test_board l_brick 2 0) => lbrick5_board))
     (testing "Collision"
       (fact (no_collision_board test_board l_brick 0 1) => lbrick1_board)
-      (fact (no_collision_board lbrick1_board l_brick 0 1) => nil)))
+      (fact (no_collision_board lbrick1_board l_brick 0 1) => nil)
+      (testing "Colorcoded collisions"
+        (fact (no_collision_board lbrick1_board colored_l_brick 0 1) => nil))))
   (testing "Row trimming"
     (fact (trim_into test_row test_b_row -1) => [1 0 0])
     (fact (trim_into test_row test_b_row 4) => [0 1])
